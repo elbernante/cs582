@@ -1,0 +1,94 @@
+# To upload files to ec2
+
+# Install zip and unziping tools
+
+sudo apt-get install zip
+sudo apt-get install unzip
+
+# To unzip:
+unzip file.zip -d destination_folder
+
+# To zip a folder:
+zip -r myfiles.zip myfiles
+
+
+ip=52.201.229.173        # The ip address of your ec2 instance
+user=ubuntu
+ikey=~/.ssh/tf-jup-us-east.pem
+dist=/home/ubuntu/ml-data/ws/capstone
+
+# Upload files from local machine to EC2
+scp -r -i $ikey for_ec2 $user@$ip:$dist
+
+
+# Download files from EC2 to local machine
+scp -i ec2key.pem username@ec2ip:/path/to/file .
+
+
+## Downloading dataset from Kaggle
+## ================================
+
+# Login to Kaggle using Lynx
+#       Note: Make sure the file 'lynx.cfg' is in the current directory
+
+lynx -cfg=lynx.cfg www.kaggle.com
+
+# ... Browse and login. (Be sure to check-mark 'Remember me')
+# ... Exit from the text-based browser. A file 'lynx_cookies.file' should be created (see lynx.cfg file)
+
+# Download the dataset file:
+wget -c --load-cookies=lynx_cookies.file <URL to the dataset download>
+
+#  NOTE: If this is the first time you've downloaded a file from a competition,
+#          you will be prompted to accept terms and condition (TOC) first before
+#          you can proceed with the download. If this happens, go to the download
+#          page using a regular brower, click one of the download items, and 
+#          accept the TOC. You can then come back here and proceed with the wget download.
+
+## Mounting EBS Volume
+## ===============================
+
+# - In amazon console, attach the volume to the instance
+# - SSH to the instance
+
+
+# ec2
+# * Viewing available disk devices
+# --------------------------------
+lsblk
+
+# * Viewing mounted devices
+# --------------------------------
+df -h
+
+# * Checking if device has data (has file system)
+# --------------------------------
+sudo file -s /dev/xvdf      # /dev/xvdf is the device name
+
+#   If device has no file system, it should output:
+#       /dev/xvdf: data
+#
+#   If device has file system, it should output similar to:
+#       /dev/xvdf: Linux rev 1.0 ext4 filesystem data, UUID=1701d228-e1bd-4094-a14c-8c64d6819362 (needs journal recovery) (extents) (large files) (huge files)
+
+
+# * Creating file system for blank devices
+# --------------------------------
+#       NOTE: Only use this on blank devices
+sudo mkfs -t ext4 /dev/xvdf     # /dev/xvdf is the device_name
+
+
+# Mounting device
+# --------------------------------
+
+# * Create a directory to where to mount
+sudo mkdir ~/ml-data
+
+# * Mount device
+sudo mount /dev/xvdf ~/ml-data
+
+
+# * Check permisions, and change if needed
+sudo chown ubuntu:ubuntu ~/ml-data
+
+

@@ -1,0 +1,224 @@
+# Setting up Anaconda, Keras, Tensorflow on Amazon EC2 p2.2xlarge with GPU support
+
+Use:
+    - Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-da05a4a0
+    - p2.2xlarge
+    - 32 GB
+
+Open Ports:
+    Type            Protocol    Port Range  Source
+    SSH             TCP         22          0.0.0.0/0
+    HTTPS           TCP         443         0.0.0.0/0
+    Custom TCP Rule TCP         8888        0.0.0.0/0
+    Custom TCP Rule TCP         6006        0.0.0.0/0
+
+
+## Login
+## =====================================
+
+# local
+ip=52.201.229.173                # The ip address of your ec2 instance
+user=ubuntu
+ikey=~/.ssh/tf-jup-us-east.pem
+ssh -i $ikey -t $user@$ip "screen -dR setup"
+
+
+## Update Packages
+## =====================================
+
+# ec2
+sudo apt-get update
+sudo apt-get upgrade -y
+
+sudo apt-get install -y build-essential cmake git zip unzip pkg-config
+sudo apt-get install -y libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
+sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+sudo apt-get install -y libxvidcore-dev libx264-dev
+sudo apt-get install -y libgtk-3-dev
+sudo apt-get install -y libhdf5-serial-dev graphviz
+sudo apt-get install -y libopenblas-dev libatlas-base-dev gfortran
+sudo apt-get install -y swig default-jdk zlib1g-dev
+sudo apt-get install -y python-tk python3-tk python-imaging-tk
+sudo apt-get install -y python-pip python-dev python-numpy
+
+## =====================================
+### Prepare the system to swap out the default drivers with NVIDIA CUDA drivers:
+## =====================================
+
+$ sudo apt-get install -y linux-image-generic linux-image-extra-virtual
+$ sudo apt-get install -y linux-source linux-headers-`uname -r`
+
+# ** Prerequisiites: Blacklist Nouveau
+# ec2
+echo -e "blacklist nouveau\nblacklist lbm-nouveau\noptions nouveau modeset=0\nalias nouveau off\nalias lbm-nouveau off\n" | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
+echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
+sudo update-initramfs -u
+sudo reboot     # *** reboot machine! ***
+
+# ** Log back in
+
+# local
+ssh -i $pkey -t $user@$ip "screen -dR setup"
+
+
+## Mount root to save disk space
+## =====================================
+sudo mkdir /mnt/tmp
+sudo chmod 777 /mnt/tmp
+sudo rm -rf /tmp
+sudo ln -s /mnt/tmp /tmp
+
+
+## Installing CUDA 8.0
+## =====================================
+
+cd /mnt/tmp
+
+# ** Download install script
+wget -O cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
+cs=$(md5sum cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb | cut -d' ' -f1)
+if [ "$cs" != "d735c7fed8be0e72fa853f65042d5438" ]; then echo "WARNING: Unverified MD5 hash"; fi
+
+sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+sudo apt-get update
+sudo apt-get install -y cuda
+
+# ... prompts
+
+sudo modprobe nvidia
+
+
+# Update .bashrc
+echo "export PATH=/usr/local/cuda-8.0/bin:$PATH" >> ~/.bashrc
+echo "export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64" >> ~/.bashrc
+echo "export CUDA_HOME=/usr/local/cuda-8.0" >> ~/.bashrc
+
+source ~/.bashrc
+
+
+
+## Install cuDNN 6.5
+## =====================================
+#  Note: Get the URL from your DropBox
+
+cd /mnt/tmp
+
+wget -O cudnn-8.0-linux-x64-v6.0.tgz https://www.dropbox.com/s/6dq9gwez66bhdzu/cudnn-8.0-linux-x64-v6.0.tgz?dl=1
+tar -xzf cudnn-8.0-linux-x64-v6.0.tgz
+sudo cp /mnt/tmp/cuda/lib64/* /usr/local/cuda-8.0/lib64
+sudo cp /mnt/tmp/cuda/include/* /usr/local/cuda-8.0/include
+
+
+
+# Installlibcupti-dev library - the NVIDIA CUDA Profile Tools Interface
+## =====================================
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install -y libcupti-dev
+
+
+
+## Install JDK 8
+## =====================================
+
+sudo add-apt-repository ppa:openjdk-r/ppa
+
+# ... prompt
+
+sudo apt-get update
+sudo apt-get install -y openjdk-8-jdk
+
+#  ** Set default to Java 8
+sudo update-alternatives --config java
+
+# ... prompt. Choose #2
+
+sudo update-alternatives --config javac
+# ... prompt. Choose #2
+
+
+## Install tmux
+## =====================================
+sudo apt-get update
+sudo apt-get install tmux
+
+# copy .tmux.conf to ~ # use scp
+# or setup a new one
+
+
+
+## Install Anaconda
+## =====================================
+
+cd /mnt/tmp
+
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+cs=$(md5sum Miniconda3-latest-Linux-x86_64.sh | cut -d' ' -f1)
+if [ "$cs" != "0b80a152332a4ce5250f3c09589c7a81" ]; then echo "WARNING: Unverified MD5 hash"; fi
+
+bash Miniconda3-latest-Linux-x86_64.sh
+
+# ... prompts
+
+source ~/.bashrc
+
+## NOTE: Check version if Python version is 3.6
+## If not, create an environment:
+
+conda create -n tensorflow python=3.6
+source activate tensorflow
+
+## Install Deep Learning Softwares
+## =====================================
+
+pip install tqdm
+conda install -y pillow
+conda install -y numpy
+conda install -y matplotlib
+conda install -y scipy
+conda install -y pandas
+conda install -y jupyter
+conda install -y scikit-learn
+conda install --channel https://conda.anaconda.org/menpo opencv3
+
+
+# Lynx text-based web browser
+sudo apt-get -y install lynx
+
+
+# Install Tensorflow - GPU
+## =====================================
+pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.4.0-cp36-cp36m-linux_x86_64.whl
+
+
+## Install Keras - GPU
+## =====================================
+pip install -y keras-gpu
+
+
+## Setup Jupyter Notebook
+## =====================================
+cd ~
+jupyter notebook --generate-config
+sed -i "1 a\
+c = get_config()\\
+c.NotebookApp.ip = '*'\\
+c.NotebookApp.open_browser = False\\
+c.NotebookApp.token = u''\\
+c.NotebookApp.port = 8888" .jupyter/jupyter_notebook_config.py
+
+
+## Start Jupyter
+# NOTE: Be sure you’ve added LD_LIBRARY_PATH and CUDA_HOME to your environment. (See Installing CUDA 8.0)
+
+mkdir -p ~/notebooks
+cd ~/notebooks
+jupyter notebook --certfile=~/certs/notebook_cert.pem --keyfile ~/certs/notebook_cert.key
+
+# NOTE: You can hit `crtl-a` then `d` to disconnect from screen session while leaving jupyter running
+
+# Lauch jupyter from your browser: https://ec2-XX-XX-XXX-XXX.us-west-2.compute.amazonaws.com:8888
+#       NOTE: You'll get a security warning because the certificate you've created above is not verified.
+#             Click the 'Advanced' link and proceed.
+#             When prompted, the password is the one you created above (in $key)
+
