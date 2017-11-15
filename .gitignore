@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+
+# project-specific
+data/*
+!data/.gitinclude
+output/
