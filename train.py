@@ -76,7 +76,7 @@ def make_model(input_shape, learning_rate):
 
 def train():
     X_train, y_train, X_val, y_val = get_train_val_sets(TRAIN_SET_PICKLE, VALIDATION_SET_PICKLE)
-    X_train, y_train, X_val, y_val = X_train[:16,...], y_train[:16,...], X_val[:16,...], y_val[:16,...]
+#     X_train, y_train, X_val, y_val = X_train[:16,...], y_train[:16,...], X_val[:16,...], y_val[:16,...]
     model = make_model((IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS), LEARNING_RATE)
     model_checkpoint = ModelCheckpoint(WEIGHTS_FILE, monitor='val_loss', save_best_only=True)
     train_monitor = TrainMonitor(HISTORY_LOG, X_train[:1,...], y_train[:1,...], out_dir="output/preds/")
