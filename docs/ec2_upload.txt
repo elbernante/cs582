@@ -12,10 +12,11 @@ unzip file.zip -d destination_folder
 zip -r myfiles.zip myfiles
 
 
-ip=52.201.229.173        # The ip address of your ec2 instance
+ip=54.172.159.246        # The ip address of your ec2 instance
 user=ubuntu
 ikey=~/.ssh/tf-jup-us-east.pem
-dist=/home/ubuntu/ml-data/ws/capstone
+dist=/home/ubuntu
+
 
 # Upload files from local machine to EC2
 scp -r -i $ikey for_ec2 $user@$ip:$dist

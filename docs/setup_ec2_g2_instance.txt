@@ -1,8 +1,8 @@
-# Setting up Anaconda, Keras, Tensorflow on Amazon EC2 p2.2xlarge with GPU support
+# Setting up Anaconda, Keras, Tensorflow on Amazon EC2 p2.xlarge with GPU support
 
 Use:
     - Ubuntu Server 16.04 LTS (HVM), SSD Volume Type - ami-da05a4a0
-    - p2.2xlarge
+    - p2.xlarge
     - 32 GB
 
 Open Ports:
@@ -17,7 +17,7 @@ Open Ports:
 ## =====================================
 
 # local
-ip=52.201.229.173                # The ip address of your ec2 instance
+ip=54.172.159.246               # The ip address of your ec2 instance
 user=ubuntu
 ikey=~/.ssh/tf-jup-us-east.pem
 ssh -i $ikey -t $user@$ip "screen -dR setup"
@@ -45,8 +45,8 @@ sudo apt-get install -y python-pip python-dev python-numpy
 ### Prepare the system to swap out the default drivers with NVIDIA CUDA drivers:
 ## =====================================
 
-$ sudo apt-get install -y linux-image-generic linux-image-extra-virtual
-$ sudo apt-get install -y linux-source linux-headers-`uname -r`
+sudo apt-get install -y linux-image-generic linux-image-extra-virtual
+sudo apt-get install -y linux-source linux-headers-`uname -r`
 
 # ** Prerequisiites: Blacklist Nouveau
 # ec2
@@ -165,8 +165,8 @@ source ~/.bashrc
 ## NOTE: Check version if Python version is 3.6
 ## If not, create an environment:
 
-conda create -n tensorflow python=3.6
-source activate tensorflow
+#   conda create -n tensorflow python=3.6
+#   source activate tensorflow
 
 ## Install Deep Learning Softwares
 ## =====================================
@@ -179,7 +179,7 @@ conda install -y scipy
 conda install -y pandas
 conda install -y jupyter
 conda install -y scikit-learn
-conda install --channel https://conda.anaconda.org/menpo opencv3
+conda install -y --channel https://conda.anaconda.org/menpo opencv3
 
 
 # Lynx text-based web browser
@@ -193,7 +193,7 @@ pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorfl
 
 ## Install Keras - GPU
 ## =====================================
-pip install -y keras-gpu
+conda install -y keras-gpu
 
 
 ## Setup Jupyter Notebook
@@ -211,9 +211,6 @@ c.NotebookApp.port = 8888" .jupyter/jupyter_notebook_config.py
 ## Start Jupyter
 # NOTE: Be sure you’ve added LD_LIBRARY_PATH and CUDA_HOME to your environment. (See Installing CUDA 8.0)
 
-mkdir -p ~/notebooks
-cd ~/notebooks
-jupyter notebook --certfile=~/certs/notebook_cert.pem --keyfile ~/certs/notebook_cert.key
 
 # NOTE: You can hit `crtl-a` then `d` to disconnect from screen session while leaving jupyter running
 
