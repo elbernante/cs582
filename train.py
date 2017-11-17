@@ -11,7 +11,7 @@ from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 
-from lib.stats_tools import dice_coef, dice_coef_loss, f1_score
+from lib.stats_tools import dice_coef, dice_coef_loss, f1_score, f2_score, f05_score
 from lib.callbacks import TrainMonitor
 from lib.util import image_augment, get_train_val_sets
 
@@ -148,7 +148,9 @@ def make_model(input_shape, learning_rate):
 
     model = Model(inputs=[inputs], outputs=[conv10])
     
-    model.compile(optimizer=Adam(lr=learning_rate, decay=0.), loss=dice_coef_loss, metrics=[dice_coef, f1_score])
+    model.compile(optimizer=Adam(lr=learning_rate, decay=0.),
+                  loss=dice_coef_loss,
+                  metrics=[dice_coef, f1_score, f2_score, f05_score])
 #     model.compile(optimizer=Adam(lr=learning_rate), loss='cosine', metrics=[dice_coef, f1_score])
     
     return model

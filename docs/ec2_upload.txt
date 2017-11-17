@@ -12,7 +12,7 @@ unzip file.zip -d destination_folder
 zip -r myfiles.zip myfiles
 
 
-ip=34.207.152.19        # The ip address of your ec2 instance
+ip=52.203.250.181        # The ip address of your ec2 instance
 user=ubuntu
 ikey=~/.ssh/tf-jup-us-east.pem
 dist=/home/ubuntu/ml-data/cs582

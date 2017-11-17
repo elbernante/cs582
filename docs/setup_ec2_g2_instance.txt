@@ -17,10 +17,11 @@ Open Ports:
 ## =====================================
 
 # local
-ip=34.207.152.19               # The ip address of your ec2 instance
+ip=52.203.250.181               # The ip address of your ec2 instance
 user=ubuntu
 ikey=~/.ssh/tf-jup-us-east.pem
-ssh -i $ikey -t $user@$ip "screen -dR setup"
+ssh -i $ikey -t $user@$ip "tmux"
+# ssh -i $ikey -t $user@$ip "screen -dR setup"
 
 
 ## Update Packages

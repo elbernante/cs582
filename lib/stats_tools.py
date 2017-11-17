@@ -21,6 +21,11 @@ def f1_score(y_true, y_pred, beta=1.0, smooth=1e-8):
     bottom = top + (b2 * fn) + fp
     return ((top + smooth)/(bottom + smooth))
 
+def f2_score(y_true, y_pred, **kwargs):
+    return f1_score(y_true, y_pred, beta=2.0, **kwargs)
+
+def f05_score(y_true, y_pred, **kwargs):
+    return f1_score(y_true, y_pred, beta=0.5, **kwargs)
 
 def get_f_stats(predictions, labels, 
                 true_positives=0, false_positives=0,

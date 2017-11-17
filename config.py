@@ -2,7 +2,7 @@ import os
 from lib.file_io import create_if_not_exists as mkdir
 
 # Hyper-parameters
-LEARNING_RATE = 1e-5
+LEARNING_RATE = 1e-4
 LEARNING_RATE_DECAY = 0.98
 DECAY_STEP = 1
 DROPOUT_KEEP_RATE = 0.5
