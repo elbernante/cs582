@@ -17,7 +17,7 @@ Open Ports:
 ## =====================================
 
 # local
-ip=52.203.250.181               # The ip address of your ec2 instance
+ip=34.234.64.145               # The ip address of your ec2 instance
 user=ubuntu
 ikey=~/.ssh/tf-jup-us-east.pem
 ssh -i $ikey -t $user@$ip "tmux"

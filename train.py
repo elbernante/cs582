@@ -32,7 +32,7 @@ def train():
     return model.fit_generator(image_augment(X_train, y_train, 
                                              batch_size=TRAIN_BATCH_SIZE,
                                              seed=10), 
-                               10,
+                               y_train.shape[0] // TRAIN_BATCH_SIZE,
                                epochs=EPOCHS_TO_RUN,
                                verbose=1,
                                callbacks=[model_checkpoint, train_monitor], 
@@ -40,3 +40,5 @@ def train():
 
 if __name__ == "__main__":
     train()
+
+
