@@ -1,0 +1,6 @@
+Cross Correlation Coefficient:
+
+Edwards, A. L. "The Correlation Coefficient." Ch. 4 in An Introduction to Linear Regression and Correlation. San Francisco, CA: W. H. Freeman, pp. 33-46, 1976.
+
+Convolution, Deconvolution
+https://arxiv.org/abs/1603.07285
