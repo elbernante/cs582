@@ -1,0 +1,20 @@
+\section{Inception U-Net vs. Other Architectures}
+
+Following the previous work on Ultra Sound Nerve Segmentation \cite{jocicmarko-ultrasound-segmentation}, we run our model against the test dataset. We compare our results from running single model, without any ensemble. Table \ref{tab:arch_compare} illustrates the dice coefficients of various architectures on the test dataset.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l c}
+	\toprule
+	Architecture & Dice Coefficient \\
+	\midrule
+	\midrule
+ 	U-Net & 0.57 \\
+	Image Pyramid & 0.58 \\
+	Inception U-Net & 0.62 \\
+	\bottomrule
+		
+	\end{tabular}
+	\caption{Inception U-Net outperforms the standard U-Net architecture}
+\label{tab:arch_compare}
+\end{table}
