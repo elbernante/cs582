@@ -1,0 +1,18 @@
+\section{Data Preprocessing}
+
+\subsection{Filtering}
+As shown in Figure \ref{fig:conflicting}, several images are very similar but have conflicting masks. This will greatly negatively affect the learning process. To mitigate the negative impact, images without masks, but with very similar images that have masks, are filtered out (images without masks and have no similar images are retained). The reason for dropping these images is, they most likely have similar annotation with their annotated counterpart, and were overlooked during manual annotations (it is more likely to miss to annotate an image than accidentally annotating random location of the image).
+
+For similar images with varying annotations (in terms of shapes and sizes), they mostly cover the same general area of the image, and have common intersections. These images are retained for training to force the model to figure out what is common between the annotations.
+
+The similarity of the images are measured using normalized cross-correlation coefficient \cite{cross-correlation} with a threshold of 0.8.
+
+
+\subsection{Resizing Images}
+The ultrasound images are large files and have a lot of noise. To reduce the noise, the images are downsized to 96 x 128 pixels using inter-area interpolation \cite{GEAN:GEAN1135}. Downsizing also significantly reduces the dimensionality of the dataset, which will also improve the training time.
+
+\subsection{Splitting}
+The dataset is split to 80\% train and 20\% validation sets. The split is stratified based on the presence of mask.
+
+\subsection{Normalization}
+To have better training performance, the dataset is centered at zero mean and normalized to unit variance. This was done by subtracting the mean and then dividing by the standard deviation of the dataset.

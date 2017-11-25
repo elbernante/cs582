@@ -1,0 +1,42 @@
+\section{Training}
+\subsection{Loss Function}
+We want our output to produce similar mask as the labels. This entails a measure of similarity. Dice Coefficient \cite{Sorensen-1948-BK} is a static used for comparing the similarity of two samples, and is given with the formula:
+
+$$QS=\frac{2|X\bigcap Y|}{|X| + |Y|}$$
+
+It was originally intended to be applied to presence/absence of data. ${QS}$ is the quotient of similarity and ranges between 0 and 1, where 1.0 means the two samples are exactly the same. It can be viewed as a similarity measure over sets.
+
+The loss function minimizes, so we take the negative Dice Coefficient as our loss function.
+
+\subsection{Training Configuration}
+Training the model was run with the following configuration:
+
+\begin{center}
+\begin{tabular}{r l}
+	Optimizer           & Adam \\
+	Learning rate       & 0.0001 \\
+	Learning rate decay & 0.001 \\
+	Loss Function       & - Dice Coefficient \\
+	Batch size          & 32 \\
+	Epochs              & 120
+\end{tabular}
+\end{center}
+
+The weights of the network were randomly initialized and trained end-to-end using Adam optimizer \cite{2014arXiv1412.6980K} default values for hyperparameters $\beta_1=0.9$ and $\beta_2=0.999$. The learning rate was set to 0.0001 with a decay of 0.001 for every iteration.
+
+With limited training dataset, data augmentation was applied. Artificial images were generated on-the-fly which consists of transformation of the images including horizontal and vertical shifts, rotation between $\pm30$ degrees, up to 10\% zoom, and horizontal and vertical flips.
+
+We use Keras \cite{chollet2015keras} to run the training with TesnsorFlow \cite{tensorflow2015-whitepaper} backend.
+
+
+\subsection{Evaluation and Validation}
+The learning rate that produced reasonable result is around 0.0001. Higher learning rate converged to higher loss value while with lower learning the training was not able to converge after several epochs. Exponential learning rate decay of 0.001, decayed at every iteration, helped stabilized the loss convergence at the later stage of training.
+
+he training and validation loss were very close to each either which indicates that the model is neither overfitting nor has high variance (See Figure \ref{fig:loss}).
+
+The $F_1$ score also shows a result that is in agreement with the loss (See Figure \ref{fig:f1}).
+
+The final model was chosen using early stopping. The checkpoint with highest validation score was chosen as the final model. The validation set uses images that were not included during training. It generally has lower score compared to training, which reflects more accurate performance metric of the model.
+
+
+To verify the robustness of the model, inference was run using the test dataset. This dataset does not have accompanying ground truth that can be compared with to produce a quantitative measure. It is rather difficult for untrained eyes to make a judgment as to whether or not the predicted annotations are accurate. As a non-medical professional, we can look over and again the training set and pick up general pattern of nerve structures. However, this would still be not very reliable and consulting with a trained medical professional would be best to verify the result. Some samples predictions using the test dataset are shown in Figure \ref{fig:result_3} for qualitative assessment.

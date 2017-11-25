@@ -1,5 +1,8 @@
 \documentclass{article}
 
+% use Unicode characters - try changing the option if you run into troubles with special characters (e.g. umlauts)
+\usepackage[utf8]{inputenc}
+
 \usepackage{graphicx} % more modern
 \usepackage{subcaption} 
 
@@ -60,18 +63,20 @@
 \printAffiliationsAndNotice{}
 
 \input{intro}
+\bigskip
 
 \input{problem_formulation}
+\bigskip
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.8\linewidth}
+    \begin{subfigure}[b]{0.6\linewidth}
         \includegraphics[width=1.0\linewidth]{figures/distribution_1.png}
         \caption{Classes are severely imbalanced}
         \label{fig:distribution_1}
     \end{subfigure}
 
-   \begin{subfigure}[b]{0.9\linewidth}
+   \begin{subfigure}[b]{0.7\linewidth}
         \includegraphics[width=1.0\linewidth]{figures/distribution_2.png}
         \caption{Majority of the images has blank annotations (i.e. no annotated brachial plexus)}
         \label{fig:distribution_2}
@@ -81,60 +86,119 @@
     \label{fig:distribution}
 \end{figure}
 
-\begin{figure*}[ht]
+\begin{figure}[h]
  \centering
-  \includegraphics[width=0.8\linewidth]{figures/high_corr.png}
+  \includegraphics[width=1.0\linewidth]{figures/high_corr.png}
   \caption{
       High correlation of images. The file names have the format \textless patient\_id\_xxx.tif\textgreater . Images coming from the same patient ID are highly correlated. (NOTE: The images are not exactly the same.)
   }
   \label{fig:high_corr}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[ht]
+\begin{figure}[h]
  \centering
-  \includegraphics[width=0.8\linewidth]{figures/inaccurate_1.png}
-  \includegraphics[width=0.8\linewidth]{figures/inaccurate_2.png}
-  \includegraphics[width=0.8\linewidth]{figures/inaccurate_3.png}
-  \includegraphics[width=0.8\linewidth]{figures/inaccurate_4.png}
+  \includegraphics[width=1.0\linewidth]{figures/inaccurate_1.png}
+  \includegraphics[width=1.0\linewidth]{figures/inaccurate_2.png}
+  \includegraphics[width=1.0\linewidth]{figures/inaccurate_3.png}
+  \includegraphics[width=1.0\linewidth]{figures/inaccurate_4.png}
   \caption{
       Similar images with varying annotations. Human-annotated training images have inaccurate annotations.
   }
   \label{fig:inaccurate}
-\end{figure*}
+\end{figure}
 
 
-\begin{figure*}[ht]
+\begin{figure}[h]
  \centering
-  \includegraphics[width=0.7\linewidth]{figures/conflicting.png}
+  \includegraphics[width=1.0\linewidth]{figures/conflicting.png}
   \caption{
       Conflicting annotations. Very similar images have conflicting annotations. One image has BP while the other has none. These are human errors during manual annotation of the dataset.
   }
   \label{fig:conflicting}
-\end{figure*}
+\end{figure}
 
 
-\begin{figure*}[ht]
+\begin{figure}[h]
  \centering
   \includegraphics[width=1.0\linewidth]{figures/average_loc.png}
   \caption{
       Average annotations of similar images. Similar images have similar annotations, if present. The annotations do not exactly have the same shape, but they cover the same general area of the image and have common intersections.
   }
   \label{fig:average_loc}
+\end{figure}
+
+\begin{figure*}[ht]
+ \centering
+  \includegraphics[width=0.8\linewidth]{figures/inception-u-net.png}
+  \caption{
+      Inception U-Net Architecture. All layers in the middle uses Inception V3 and Grid Reduction modules instead of VGG and MaxPooling. Inception V4 is used in the coarsest layer at the bottom. Transpose Convolution is used to upsample the layer to the same size as the input. All Layers used SELU activation, with the exception of the last layer where Sigmoid was used for binary classification.
+  }
+  \label{fig:inception-u-net}
 \end{figure*}
 
 
-\section{Analysis}
-\subsection{Data Exploration}
-There are 5,635 images for training and 5,508 images for testing. The images are gray scale with dimensions 580 x 420 pixels and are noisy. Training images have masks to indicate where the BP is present, while there is none for testing images. In the training images, only 2,323 images have positively identified the BP.
-Groups of images are taken from the same patient.  Images that come from the same patient are highly correlated (see Figure \ref{fig:high_corr}).
 
-The classes are severely imbalanced; consisting of $1.2\%$ positive class and $98.8\%$ negative class (see Figure \ref{fig:distribution}. This class imbalance is mitigated by using $F_1$ score.
-There are inaccuracies in the annotations of the BP. There is no prefect ground truth or gold standard (see Figure \ref{fig:inaccurate}). There are very similar images but with conflicting annotations; one image has positively identified the BP, however the other has none (see Figure \ref{fig:conflicting}). There are also very similar images that have positive annotations, but the area where they are annotated differ in shape/area, although the annotations are located approximately in the same region (see Figure \ref{fig:average_loc}).Where the BP is present in an image, the BP annotations has the following characteristics:
 
-\centering
-\begin{tabular}{l r}
-Minimum size  &      2,684 pixels \\Maximum size &    17,439 pixels \\Average size   & 7,125.74 pixels \\
-\end{tabular}
+\input{data_exploration}
+\bigskip
+
+\input{preprocessing}
+\bigskip
+
+
+\input{model_architecture}
+\bigskip
+
+\begin{figure}[h]
+ \centering
+  \includegraphics[width=1.0\linewidth]{figures/loss.png}
+  \caption{
+      Training and Validation Loss
+  }
+  \label{fig:loss}
+\end{figure}
+
+\begin{figure}[h]
+ \centering
+  \includegraphics[width=1.0\linewidth]{figures/f1.png}
+  \caption{
+      Training and Validation $F_1$ Scores
+  }
+  \label{fig:f1}
+\end{figure}
+
+\input{training}
+\bigskip
+
+
+\begin{figure*}[ht]
+    \centering
+    \begin{subfigure}[b]{1.0\linewidth}
+        \includegraphics[width=1.0\linewidth]{figures/result_1.png}
+        \caption{Good performance of the model. The area highlighted in cyan is the ground truth while the area outlined in yellow is the prediction of the model. The model predictions are almost identical to the ground truth.}
+        \label{fig:result_1}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{1.0\linewidth}
+        \includegraphics[width=1.0\linewidth]{figures/result_2.png}
+        \caption{Missed out predictions. From left to right: (a) the model prediction mostly missed the ground truth, (b) the model hit the ground truth but also annotated an extra area, (c) the model was not able to detect brachial plexus but there actually exists, and (d) the model was able to find brachial plexus where human annotator missed out.}
+        \label{fig:result_2}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{1.0\linewidth}
+        \includegraphics[width=1.0\linewidth]{figures/result_3.png}
+        \caption{Inference on test dataset. The yellow highlights are the prediction of the model. The test dataset has no accompanying ground truth to compare the results with. Consultation from trained ultrasound professional is needed.}
+        \label{fig:result_3}
+    \end{subfigure}
+
+
+    \caption{Final Model Output}
+    \label{fig:result}
+\end{figure*}
+
+\input{result}
+\bigskip
+
 
 
 

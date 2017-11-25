@@ -1,20 +1,90 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{15}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Abadi et~al.(2015)Abadi, Agarwal, Barham, Brevdo, Chen, Citro,
+  Corrado, Davis, Dean, Devin, Ghemawat, Goodfellow, Harp, Irving, Isard, Jia,
+  Jozefowicz, Kaiser, Kudlur, Levenberg, Man\'{e}, Monga, Moore, Murray, Olah,
+  Schuster, Shlens, Steiner, Sutskever, Talwar, Tucker, Vanhoucke, Vasudevan,
+  Vi\'{e}gas, Vinyals, Warden, Wattenberg, Wicke, Yu, and
+  Zheng]{tensorflow2015-whitepaper}
+Abadi, Mart\'{\i}n, Agarwal, Ashish, Barham, Paul, Brevdo, Eugene, Chen,
+  Zhifeng, Citro, Craig, Corrado, Greg~S., Davis, Andy, Dean, Jeffrey, Devin,
+  Matthieu, Ghemawat, Sanjay, Goodfellow, Ian, Harp, Andrew, Irving, Geoffrey,
+  Isard, Michael, Jia, Yangqing, Jozefowicz, Rafal, Kaiser, Lukasz, Kudlur,
+  Manjunath, Levenberg, Josh, Man\'{e}, Dan, Monga, Rajat, Moore, Sherry,
+  Murray, Derek, Olah, Chris, Schuster, Mike, Shlens, Jonathon, Steiner,
+  Benoit, Sutskever, Ilya, Talwar, Kunal, Tucker, Paul, Vanhoucke, Vincent,
+  Vasudevan, Vijay, Vi\'{e}gas, Fernanda, Vinyals, Oriol, Warden, Pete,
+  Wattenberg, Martin, Wicke, Martin, Yu, Yuan, and Zheng, Xiaoqiang.
+\newblock {TensorFlow}: Large-scale machine learning on heterogeneous systems,
+  2015.
+\newblock URL \url{https://www.tensorflow.org/}.
+\newblock Software available from tensorflow.org.
+
 \bibitem[{Brachial Plexus}(2017)]{wiki:Brachial_plexus}
 {Brachial Plexus}.
 \newblock Brachial plexus --- {W}ikipedia{,} the free encyclopedia, 2017.
 \newblock URL \url{https://en.wikipedia.org/wiki/Brachial_plexus}.
+
+\bibitem[Chollet et~al.(2015)]{chollet2015keras}
+Chollet, Fran\c{c}ois et~al.
+\newblock Keras.
+\newblock \url{https://github.com/fchollet/keras}, 2015.
+
+\bibitem[{Dumoulin} \& {Visin}(2016){Dumoulin} and
+  {Visin}]{2016arXiv160307285D}
+{Dumoulin}, V. and {Visin}, F.
+\newblock {A guide to convolution arithmetic for deep learning}.
+\newblock \emph{ArXiv e-prints}, March 2016.
+
+\bibitem[Edwards(1976)]{cross-correlation}
+Edwards, A.~L.
+\newblock \emph{An Introduction to Linear Regression and Correlation},
+  chapter~4, pp.\  33--46.
+\newblock W. H. Freeman, San Francisco, CA, 1976.
+
+\bibitem[Jocić(2016)]{jocicmarko-ultrasound-segmentation}
+Jocić, Marko.
+\newblock Deep learning tutorial for kaggle ultrasound nerve segmentation
+  competition, using keras.
+\newblock \url{https://github.com/jocicmarko/ultrasound-nerve-segmentation},
+  2016.
 
 \bibitem[{Kaggle}(2016)]{kaggle:ultrasound-nerve-segmentation}
 {Kaggle}.
 \newblock Ultrasound nerve segmentation, 2016.
 \newblock data retrieved from World Development Indicators,
   \url{https://www.kaggle.com/c/ultrasound-nerve-segmentation}.
+
+\bibitem[{Kingma} \& {Ba}(2014){Kingma} and {Ba}]{2014arXiv1412.6980K}
+{Kingma}, D.~P. and {Ba}, J.
+\newblock {Adam: A Method for Stochastic Optimization}.
+\newblock \emph{ArXiv e-prints}, December 2014.
+
+\bibitem[{Klambauer} et~al.(2017){Klambauer}, {Unterthiner}, {Mayr}, and
+  {Hochreiter}]{2017arXiv170602515K}
+{Klambauer}, G., {Unterthiner}, T., {Mayr}, A., and {Hochreiter}, S.
+\newblock {Self-Normalizing Neural Networks}.
+\newblock \emph{ArXiv e-prints}, June 2017.
+
+\bibitem[Kyriakidis(2004)]{GEAN:GEAN1135}
+Kyriakidis, Phaedon~C.
+\newblock A geostatistical framework for area-to-point spatial interpolation.
+\newblock \emph{Geographical Analysis}, 36\penalty0 (3):\penalty0 259--289,
+  2004.
+\newblock ISSN 1538-4632.
+\newblock \doi{10.1111/j.1538-4632.2004.tb01135.x}.
+\newblock URL \url{http://dx.doi.org/10.1111/j.1538-4632.2004.tb01135.x}.
+
+\bibitem[Lecun et~al.(1998)Lecun, Bottou, Bengio, and
+  Haffner]{Lecun98gradient-basedlearning}
+Lecun, Yann, Bottou, Léon, Bengio, Yoshua, and Haffner, Patrick.
+\newblock Gradient-based learning applied to document recognition.
+\newblock In \emph{Proceedings of the IEEE}, pp.\  2278--2324, 1998.
 
 \bibitem[{Ronneberger} et~al.(2015){Ronneberger}, {Fischer}, and
   {Brox}]{2015arXiv150504597R}
@@ -27,6 +97,13 @@
 {Simonyan}, K. and {Zisserman}, A.
 \newblock {Very Deep Convolutional Networks for Large-Scale Image Recognition}.
 \newblock \emph{ArXiv e-prints}, September 2014.
+
+\bibitem[S{\o}rensen(1948)]{Sorensen-1948-BK}
+S{\o}rensen, T.
+\newblock {A method of establishing groups of equal amplitude in plant
+  sociology based on similarity of species and its application to analyses of
+  the vegetation on Danish commons}.
+\newblock \emph{Biol. Skr.}, 5:\penalty0 1--34, 1948.
 
 \bibitem[{Szegedy} et~al.(2015){Szegedy}, {Vanhoucke}, {Ioffe}, {Shlens}, and
   {Wojna}]{2015arXiv151200567S}

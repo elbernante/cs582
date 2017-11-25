@@ -1,0 +1,17 @@
+\section{Data Exploration}
+There are 5,635 images for training and 5,508 images for testing. The images are gray scale with dimensions 580 x 420 pixels and are noisy. Training images have masks to indicate where the BP is present, while there is none for testing images. In the training images, only 2,323 images have positively identified the BP.
+Groups of images are taken from the same patient.  Images that come from the same patient are highly correlated (see Figure \ref{fig:high_corr}).
+
+The classes are severely imbalanced; consisting of $1.2\%$ positive class and $98.8\%$ negative class (see Figure \ref{fig:distribution}. This class imbalance is mitigated by using $F_1$ score.
+
+There are inaccuracies in the annotations of the BP. There is no prefect ground truth or gold standard (see Figure \ref{fig:inaccurate}). There are very similar images but with conflicting annotations; one image has positively identified the BP, however the other has none (see Figure \ref{fig:conflicting}). There are also very similar images that have positive annotations, but the area where they are annotated differ in shape/area, although the annotations are located approximately in the same region (see Figure \ref{fig:average_loc}).
+
+Where the BP is present in an image, the BP annotations has the following characteristics:
+
+\begin{center}
+\begin{tabular}{l r}
+Minimum size &    2,684 pixels \\
+Maximum size &   17,439 pixels \\
+Average size & 7,125.74 pixels \\
+\end{tabular}
+\end{center}
