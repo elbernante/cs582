@@ -1,3 +1,19 @@
+"""
+Training execution
+
+This script executes training for a number of epochs (set in config.py).
+Training ends when the number of epoch is exhausted or by pressing Ctrl + C.
+
+The best model is saved in output/weights.h5.
+
+NOTE: Before executing this script, be sure to run 'preprocess.py' first
+      to generate data.
+
+      Parameters can be configured at 'config.py'
+
+@author:
+    Peter James Bernante
+"""
 
 
 from keras import backend as K

@@ -243,30 +243,6 @@ def run_inference(args):
     
     print("Done. {} images saved in '{}'".format(len(keys), args['dest_dir']))
 
-def make_classifier(weights_file):
-
-    cls = NerveSegmentation(weights_file)
-
-    def _predict(raw_img):
-        # raw_img = cv2.imread(image_filename, cv2.IMREAD_GRAYSCALE)
-
-        img, crop_size = crop_and_resize(raw_img)
-        img = img.reshape(1, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS)
-        
-        pred = cls.predict(img)
-
-        pred = (pred >= 0.5).astype(np.uint8)  # threshold
-        
-        resized = smooth_resize_to(pred[0].astype(np.uint8) * 255, *crop_size)
-        padded = zero_pad(resized, *raw_img.shape)
-        label = np.zeros_like(raw_img, dtype=np.uint8)
-        output = overlay_prediction(raw_img, padded, label, 
-                                    fill_pred=True, 
-                                    fill_mask=True,
-                                    outline_size=2)
-        return output
-
-    return _predict
 
 if __name__ == '__main__':
     run_inference(get_args())
