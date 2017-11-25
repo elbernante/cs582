@@ -212,7 +212,7 @@ def run_inference(args):
              .format(IMAGE_FILE_EXT))
         exit(0)
 
-    cls = NerveSegmentation("output/weights-good-120.h5")
+    cls = NerveSegmentation("output/weights.h5")
 
     create_if_not_exists(args['dest_dir'])
 
