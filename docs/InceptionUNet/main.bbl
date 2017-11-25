@@ -1,0 +1,37 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Brachial Plexus}(2017)]{wiki:Brachial_plexus}
+{Brachial Plexus}.
+\newblock Brachial plexus --- {W}ikipedia{,} the free encyclopedia, 2017.
+\newblock URL \url{https://en.wikipedia.org/wiki/Brachial_plexus}.
+
+\bibitem[{Kaggle}(2016)]{kaggle:ultrasound-nerve-segmentation}
+{Kaggle}.
+\newblock Ultrasound nerve segmentation, 2016.
+\newblock data retrieved from World Development Indicators,
+  \url{https://www.kaggle.com/c/ultrasound-nerve-segmentation}.
+
+\bibitem[{Ronneberger} et~al.(2015){Ronneberger}, {Fischer}, and
+  {Brox}]{2015arXiv150504597R}
+{Ronneberger}, O., {Fischer}, P., and {Brox}, T.
+\newblock {U-Net: Convolutional Networks for Biomedical Image Segmentation}.
+\newblock \emph{ArXiv e-prints}, May 2015.
+
+\bibitem[{Simonyan} \& {Zisserman}(2014){Simonyan} and
+  {Zisserman}]{2014arXiv1409.1556S}
+{Simonyan}, K. and {Zisserman}, A.
+\newblock {Very Deep Convolutional Networks for Large-Scale Image Recognition}.
+\newblock \emph{ArXiv e-prints}, September 2014.
+
+\bibitem[{Szegedy} et~al.(2015){Szegedy}, {Vanhoucke}, {Ioffe}, {Shlens}, and
+  {Wojna}]{2015arXiv151200567S}
+{Szegedy}, C., {Vanhoucke}, V., {Ioffe}, S., {Shlens}, J., and {Wojna}, Z.
+\newblock {Rethinking the Inception Architecture for Computer Vision}.
+\newblock \emph{ArXiv e-prints}, December 2015.
+
+\end{thebibliography}

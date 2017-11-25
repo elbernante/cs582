@@ -1,0 +1,11 @@
+\section{Problem Formulation}
+The nerve identification task is a classification problem, where the input is an ultrasound image and the output is a binary label $t \in \{0,1\}$. We want to classify each pixel in an ultrasound image as to whether it belongs to the BP (positive class) or not (negative class).For this binary classification project, it is important to classify all positive classes, and it is also important that all positively identified classes are correct. $F_1$ score , where both precision and recall are considered, would be appropriate as the metric of choice to measure the performance of our model. The general formula for an $F-measure$ in terms of Type I and Type II errors is given as:
+$$F_\beta=\frac{ (1+\beta^2) \cdot P_{true} }{ (1+\beta^2) \cdot P_{true}  + \beta^2 \cdot N_{false} + P_{false} }$$
+
+where:
+\begin{align*}
+P_{true} &= {True \ Positive} \\
+N_{false} &= {False \ Negative} \\
+P_{false} &= {False \ Positive} \\
+\beta &= 1
+\end{align*}
